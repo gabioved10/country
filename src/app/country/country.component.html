@@ -1,0 +1,10 @@
+<button (click)="increment()"> increment   </button>
+<button (click)="decrement()"> decrement </button>
+<button (click)="reset()"> RESET </button>
+
+<button (click)="GetAllCountry()"> GetCountry </button>
+<h2>Current count : {{count$| async  }} </h2> 
+<li *ngFor="let item of country">{{item.name}} {{item.capital}} {{item.population}} {{item.currencies[0].code}} </li>
+<img *ngFor="let item of country" src={{item.flag}} alt="Italian Trulli">
+<!-- {{item.flag}} -->
+
