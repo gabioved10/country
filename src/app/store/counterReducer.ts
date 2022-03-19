@@ -21,16 +21,7 @@ const _counterReducer = createReducer(initialState,
        let alfaBet = [];
        let countrySelect = ['EU', 'EFTA', 'CARICOM', 'PA', 'AU', 'USAN', 'EEU', 'USAN', 'EEU', 'AL', 'ASEAN', 'CAIS', 'CEFTA', 'NAFTA', 'SAARC'];
    
-      let ser:ApiService;
       
-
-      ser.GetCountry().subscribe(co => {
-       
-        //  this.co=co;
-          console.log(co);
-            })
-       // this.getAreaByScedule()
-        //this.GetCountry()
     
 
         if (allArea.length != 0) {
@@ -56,8 +47,7 @@ const _counterReducer = createReducer(initialState,
                   countryList = chr;
                   tempAz.sort();
                   alfaBet = uniq(tempAz);
-                  //console.log(this.countryList);
-                  //console.log(this.alfaBet);
+                
                 }
       
               );
