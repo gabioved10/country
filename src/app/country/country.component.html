@@ -1,9 +1,9 @@
 <div class="country">
     <div class=" left">
         <div class="search">
-            <input type="text" [(ngModel)] = "searchValue"   placeholder="Search.." name="search2">
-            <button (click)="searchFunctin()" ><i class="fa fa-search"></i></button>
-    </div>
+            <input type="text" [(ngModel)]="searchValue" placeholder="Search.." name="search2">
+            <button (click)="searchFunctin()"><i class="fa fa-search"></i></button>
+        </div>
         <div *ngFor="let x of alfaBet">
             <h1 (click)="select(x)">{{x}}</h1>
         </div>

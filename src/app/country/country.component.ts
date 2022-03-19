@@ -78,17 +78,9 @@ export class CountryComponent implements OnInit {
             this.countryList = chr;
             tempAz.sort();
             this.alfaBet = this.uniq(tempAz);
-            //console.log(this.countryList);
-            //console.log(this.alfaBet);
-            console.log(this.country);
-
           }
-
         );
-
-
       })
-
   }
 
   sleep(ms) {
@@ -111,11 +103,8 @@ export class CountryComponent implements OnInit {
       if (this.country[size].name == cou) {
         this.countrySelected = size;
       };
-      // if (this.country.hasOwnProperty(key)) 
       size++;
-
     }
-
   }
 
   searchFunctin() {
@@ -128,7 +117,6 @@ export class CountryComponent implements OnInit {
       size++;
     }
     this.searchValue = "";
-
   }
 
 }
