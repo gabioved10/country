@@ -1,10 +1,30 @@
-<button (click)="increment()"> increment   </button>
-<button (click)="decrement()"> decrement </button>
-<button (click)="reset()"> RESET </button>
+<div class="country">
+    <div class=" left">
+        <div class="search">
+            <input type="text" [(ngModel)] = "searchValue"   placeholder="Search.." name="search2">
+            <button (click)="searchFunctin()" ><i class="fa fa-search"></i></button>
+    </div>
+        <div *ngFor="let x of alfaBet">
+            <h1 (click)="select(x)">{{x}}</h1>
+        </div>
+    </div>
+    <div class="right">
 
-<button (click)="GetAllCountry()"> GetCountry </button>
-<h2>Current count : {{count$| async  }} </h2> 
-<li *ngFor="let item of country">{{item.name}} {{item.capital}} {{item.population}} {{item.currencies[0].code}} </li>
-<img *ngFor="let item of country" src={{item.flag}} alt="Italian Trulli">
-<!-- {{item.flag}} -->
+        <div *ngFor="let c of countryListFilter">
+            <h1 (click)="selectCountry(c)">{{c}} </h1>
+        </div>
 
+        <div class="oneCountry" *ngIf="countrySelected !=null">
+            <img src={{country[countrySelected].flag}} alt="Italian Trulli">
+            <p> <b>name:</b> {{country[countrySelected].name}}</p>
+            <p> <b> capital: </b> {{country[countrySelected].capital}}</p>
+            <p> <b> population: </b> {{country[countrySelected].population}}</p>
+            <p>
+                <b>currencies code: </b>{{country[countrySelected].currencies[0].code}}
+                <b>name:</b>{{country[countrySelected].currencies[0].name}}
+                <b>symbol:</b> {{country[countrySelected].currencies[0].symbol}}
+            </p>
+        </div>
+    </div>
+
+</div>

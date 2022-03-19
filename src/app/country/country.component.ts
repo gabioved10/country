@@ -2,8 +2,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { increment, decrement, reset,GetAllCountry } from '../store/counter.actions';
-import { Observable } from 'rxjs';
+import { GetCountry } from '../store/counter.actions';
+import { ApiService } from '../api.service';
+
 
 
 @Component({
@@ -12,194 +13,124 @@ import { Observable } from 'rxjs';
   styleUrls: ['./country.component.css']
 })
 export class CountryComponent implements OnInit {
-  count$: Observable<any>;
-  country:object;
-  ALLcountry=[];
-  countryList=[];
-  alfaBet=[];
-  countrySelect=['EU','EFTA','CARICOM','PA','AU','USAN','EEU','USAN','EEU','AL','ASEAN','CAIS','CEFTA','NAFTA','SAARC'];
-  counterSelect:number=0;
+  country: object;
+  searchValue: string
+  countrySelected: number = null;
+  allArea = [];
+  countryList = [];
+  countryListFilter = []
+  alfaBet = [];
+  countrySelect = ['EU', 'EFTA', 'CARICOM', 'PA', 'AU', 'USAN', 'EEU', 'USAN', 'EEU', 'AL', 'ASEAN', 'CAIS', 'CEFTA', 'NAFTA', 'SAARC'];
 
 
 
-  constructor(private store:Store<{count1: any}>) { 
-    this.count$ = store.select('count1')
+
+  constructor(private store: Store<{ cuntry: any }>, private ser: ApiService) {
+    // this.count$ = store.select('count1')
   }
 
   
-  GetAllCountry(){
-        this.store.dispatch(GetAllCountry());
-              }
-
-  // getFirstCountryLocal(Cuntry:string){
-  //   var chr=[];
-  //   var tempAz=[];
-  //   var allcountry=[];
-  //   fetch('https://restcountries.com/v2/regionalbloc/'+Cuntry).then(
-  //     respone => {
-  //         respone.json().then(
-  //           data => { this.country = data;
-  //             this.ALLcountry.push(JSON.stringify(data))
-  //             data.forEach(element => {chr.push(element.name);tempAz.push(element.name.charAt(0))});
-  //             this.countryList = chr;
-  //             tempAz.sort();
-  //             //chrAz =this.uniq(chrAz);
-  //             this.alfaBet =this.uniq(tempAz);
-  //             this.counterSelect++;
-  //             console.log(this.countryList);
-  //             console.log(this.alfaBet);
-  //             console.log(data);
-              
-              
-              
-
-  //           }
-            
-  //           );
-            
-          
-          
-  //         })
-  // }
-
-
-  // getCountryByRandom(){
-  //   do {
-  //   const randomElement = this.countrySelect[Math.floor(Math.random() * this.countrySelect.length)];
-  //   this.country = this.ALLcountry[randomElement]
-  //   }
-  //   while (true);
-
-
-  // }
-
-   
-
-
- async getCountryByScedule(){
-
-
-  //const randomElement = this.countrySelect[Math.floor(Math.random() * this.countrySelect.length)];
-
-  
-  
-//  let i = 0;
-  // while (i<15) {
-  //   let k = i;
-  //   //let CS = this.countrySelect;
-  //   console.log(i);
-
-
-let x = 0
-  while(1==1){
-    let randomElement = this.countrySelect[Math.floor(Math.random() * this.countrySelect.length)];
-    
-  //   //const sleep = ms => new Promise(r => setTimeout(r, 2000));
-    this.getCountryBySelection(randomElement);
-    await this.sleep(2000);
-    x++;
-
-
+  ngOnInit(): void {
+    this.getAreaByScedule()
   }
-   
-   
-    
-  //   setTimeout(()=>{
-      
-  //     this.getCountryBySelection(randomElement);
-  //   }, 1000 * (k + 1)); 
-  //     i++; 
-  //   }
-  
 
+  GetCountry() {
+    this.store.dispatch(GetCountry());
+  }
 
+  async getAreaByScedule() {
 
-  //   for(var i = 0;i < this.countrySelect.length; i++){
-  //     let k = i;
-  //     //let CS = this.countrySelect;
-  //     console.log(i);
-  //     let randomElement = this.countrySelect[Math.floor(Math.random() * this.countrySelect.length)];
-      
-  //     setTimeout(()=>{
-  //       this.getCountryBySelection(randomElement);
-  //     }, 1000 * (k + 1)); 
-    
-  // }
-
- 
- 
-      
-                
+    let x = 0
+    while (1 == 1) {
+      let randomElement = this.countrySelect[Math.floor(Math.random() * this.countrySelect.length)];
+      this.getAreaBySelection(randomElement);
+      await this.sleep(15000);
+      x++;
+    }
   }
 
 
+  getAreaBySelection(area) {
 
-  getCountryBySelection(contry){
+    if (this.allArea.length != 0) {
+      for (let index = 0; index < this.allArea.length; index++) {
+        let element = JSON.parse(this.allArea[index]);
+        let element1 = element[0].regionalBlocs[0].acronym;
+        if (element1 == area) {
+          this.country = element;
 
-    if(this.ALLcountry.length !=0){
-    for (let index = 0; index < this.ALLcountry.length; index++) {
-      let element = JSON.parse(this.ALLcountry[index]);
-      let element1 = element[0].regionalBlocs[0].acronym ;
-       if(element1 == contry){
-         this.country =element; 
           return 0;
-      
-    
-      }
-      
-    };}
+        }
 
-   
-    var tempAz=[];
-    var chr=[];
-    
-    fetch('https://restcountries.com/v2/regionalbloc/'+contry).then(
+      };
+    }
+    var tempAz = [];
+    var chr = [];
+    fetch('https://restcountries.com/v2/regionalbloc/' + area).then(
       respone => {
-          respone.json().then(
-            data => { this.country = data;
-              this.ALLcountry.push(JSON.stringify(data))
-              data.forEach(element => {chr.push(element.name);tempAz.push(element.name.charAt(0))});
-              this.countryList = chr;
-              tempAz.sort();
-              //chrAz =this.uniq(chrAz);
-              this.alfaBet =this.uniq(tempAz);
-              this.counterSelect++;
-              console.log(this.countryList);
-              console.log(this.alfaBet);
-              //console.log(this.ALLcountry[5]);
-             
-                          
-            }
-            
-            );
-            
-          
-          
-          })
+        respone.json().then(
+          data => {
+            this.country = data;
+            this.countrySelected = null;
+            this.countryListFilter = null;
+            this.allArea.push(JSON.stringify(data))
+            data.forEach(element => { chr.push(element.name); tempAz.push(element.name.charAt(0)) });
+            this.countryList = chr;
+            tempAz.sort();
+            this.alfaBet = this.uniq(tempAz);
+            //console.log(this.countryList);
+            //console.log(this.alfaBet);
+            console.log(this.country);
+
+          }
+
+        );
+
+
+      })
 
   }
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
+  }
 
-  // increment(){
-  // this.store.dispatch(increment());
-  // }
-  // decrement(){
-  //   this.store.dispatch(decrement());
-
-  // }
-
-  // reset(){
-  //   this.store.dispatch(reset());
-
-  // }
-
-  
-
-   uniq(a) {
-    return a.sort().filter(function(item, pos, ary) {
-        return !pos || item != ary[pos - 1];
+  uniq(a) {
+    return a.sort().filter(function (item, pos, ary) {
+      return !pos || item != ary[pos - 1];
     });
+  }
+
+  select(c) {
+    this.countrySelected = null;
+    this.countryListFilter = this.countryList.filter(cc => cc[0] == c);
+  }
+  selectCountry(cou) {
+    var size = 0, key;
+    for (key in this.country) {
+      if (this.country[size].name == cou) {
+        this.countrySelected = size;
+      };
+      // if (this.country.hasOwnProperty(key)) 
+      size++;
+
+    }
+
+  }
+
+  searchFunctin() {
+    var size = 0, key;
+    for (key in this.country) {
+      if (this.country[size].name == this.searchValue) {
+        this.countryListFilter = this.countryList.filter(cc => cc == this.searchValue);
+        this.countrySelected = size;
+      }
+      size++;
+    }
+    this.searchValue = "";
+
+  }
+
 }
+
+
