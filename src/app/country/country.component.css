@@ -2,81 +2,86 @@ img {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 0px;
-  width:120px;
+  width: 120px;
   text-align: center;
   height: 80px;
   float: right;
-  }
-  .country{
-    display: flex;
-  }
-  .right{
-    width: 90%;
-  }
-  
-  .right h1 :hover{
-     color: aqua;
-    }
-  .left{
-    background-color: aliceblue;
-    width: 11%;
-    text-align: center;
-    height: 100vh;
+}
 
-    
+.country {
+  display: flex;
+}
 
-  }
-  .left h1:hover
-  {
+.right {
+  width: 90%;
+}
+
+.right h1 :hover {
+  color: aqua;
+}
+
+.left {
+  background-color: aliceblue;
+  width: 11%;
+  text-align: center;
+  height: 100vh;
+
+
+
+}
+
+.left h1:hover {
   color: rgb(106, 18, 247);
-  }
-  .right h1:hover
-  {
+}
+
+.right h1:hover {
   color: rgb(106, 18, 247);
-  }
-  .left h1{
-    background-color: aliceblue;
+}
 
-  }
+.left h1 {
+  background-color: aliceblue;
 
-  .oneCountry{
-    width: max-content;
-    margin-right: -131px;
-    margin: auto;
-    border: 2px solid;
-    padding: -11px;
-  }
-  p{
-    font-size: x-large;
-  }
+}
 
-  .search input[type=text] {
-    padding: 10px;
-    font-size: 17px;
-    border: 1px solid grey;
-    float: left;
-    width: 68%;
-    background: #f1f1f1;
-  }
-  
-  .search button {
-    float: left;
-    width: 20%;
-    padding: 10px;
-    background: #2196F3;
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
-    cursor: pointer;
-  }
-  
-  .search button:hover {
-    background: #0b7dda;
-  }
-  
-  form.example::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+.oneCountry {
+  width: max-content;
+  margin-right: -131px;
+  margin: auto;
+  border: 2px solid;
+  padding: -11px;
+}
+
+p {
+  font-size: x-large;
+}
+
+.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 68%;
+  background: #f1f1f1;
+}
+
+.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+.search button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}

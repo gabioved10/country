@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';  
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { CounterComponent } from './counter/counter.component';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './store/counterReducer';
+import { addCountryReducer } from './store/counterReducer';
 import { CountryComponent } from './country/country.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,10 +18,10 @@ import { CountryComponent } from './country/country.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule  ,
+    FormsModule,
     HttpClientModule,
-    
-    StoreModule.forRoot({cuntry : counterReducer})
+
+    StoreModule.forRoot({ country: addCountryReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

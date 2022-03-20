@@ -2,9 +2,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { GetCountry } from '../store/counter.actions';
+import { addCountryReducer } from '../store/counter.actions';
 import { ApiService } from '../api.service';
-
+import { Country } from '../country';
+import { Observable } from 'rxjs';
+import { AppState } from './../app.state';
 
 
 @Component({
@@ -22,20 +24,24 @@ export class CountryComponent implements OnInit {
   alfaBet = [];
   countrySelect = ['EU', 'EFTA', 'CARICOM', 'PA', 'AU', 'USAN', 'EEU', 'USAN', 'EEU', 'AL', 'ASEAN', 'CAIS', 'CEFTA', 'NAFTA', 'SAARC'];
 
+  Countrys: Observable<Country[]>;
 
 
-
-  constructor(private store: Store<{ cuntry: any }>, private ser: ApiService) {
-    // this.count$ = store.select('count1')
+  constructor(private store: Store<AppState>, private ser: ApiService) {
+    this.Countrys = this.store.select('country')
   }
 
-  
+
   ngOnInit(): void {
+
     this.getAreaByScedule()
   }
 
-  GetCountry() {
-    this.store.dispatch(GetCountry());
+
+
+
+  GetCountryFromStore() {
+    this.store.dispatch(addCountryReducer());
   }
 
   async getAreaByScedule() {
@@ -74,7 +80,22 @@ export class CountryComponent implements OnInit {
             this.countrySelected = null;
             this.countryListFilter = null;
             this.allArea.push(JSON.stringify(data))
-            data.forEach(element => { chr.push(element.name); tempAz.push(element.name.charAt(0)) });
+            data.forEach(element => {
+              chr.push(element.name);
+              tempAz.push(element.name.charAt(0))
+              this.store.dispatch({
+                type: 'ADD_COUNTRY',
+                payload: <Country>{
+                  name: element.name,
+                  capital: element.capital,
+                  acronym: element.acronym,
+                  Population: element.Population,
+                  currencies: element.currencies[0].code,
+                  flag: element.flag
+                }
+              });
+
+            });
             this.countryList = chr;
             tempAz.sort();
             this.alfaBet = this.uniq(tempAz);
